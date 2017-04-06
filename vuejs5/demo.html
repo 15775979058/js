@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<script type="text/javascript" src="/js/webconfig.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<counter>
+			<form class="form-group" @submit="saveTask"> 
+				<input type="text" class="form-control container" v-model="list.id" style="width:80%;margin:20px" >
+				<input type="text" class="form-control container" v-model="list.regtime" style="width:80%;margin:20px" placeholder="input regtime">
+				<input type="text" class="form-control container" v-model="list.registerDeviceId" style="width:80%;margin:20px" placeholder="input registerDeviceId">
+				<input type="text" class="form-control container" v-model="list.openid" style="width:80%;margin:20px" placeholder="input openid">
+				<button type="submit" class="btn btn-success btn-block">save task</button>
+			</form>
+
+			
+		</counter>
+	</div>
+
+
+	<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<Script language="javascript">   
+	//定义的全局变量
+	var id;
+
+	var dm = new Vue({
+		el: '#app',
+		data:function(){
+			return {
+				id:'',
+				regtime:'',
+				registerDeviceId:'',
+				openid:'',
+				list:[
+
+				],	
+			}
+		},
+		created:function(){
+			//?之后的部分
+			var params = window.location.search;
+			id = params.substring(params.lastIndexOf('=')+1,params.length);
+			console.log(id);
+			var vm = this;
+
+			$.getJSON(savedata,{id:id},function(data){
+				
+			
+				if(data.code == 200){
+					vm.list = data.msg;
+					console.log(vm.list);
+				}else{
+					alert("error");
+				}
+			});
+		},
+		methods:{
+			saveTask:function(e){
+				e.preventDefault();
+				
+				$.post(savedata,{id:dm.list.id,regtime:dm.list.regtime,registerDeviceId:dm.list.registerDeviceId,openid:dm.list.openid},function(response){
+
+					if(response.code == 200){
+						alert(response.msg);	
+						window.location.href = "index.html";
+					}else if(response.code == 404){
+						alert(response.msg);
+					}else{
+						alert(response.msg);
+					}
+					
+				});
+			},
+		},
+	});
+
+
+	</script>  
+</body>
+</html>

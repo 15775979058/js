@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<script type="text/javascript" src="/js/webconfig.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<counter>
+			<form class="form-group" @submit="createTask"> 
+				<input type="text" class="form-control container" v-model="id" style="width:80%;margin:20px" placeholder="input id">
+				<input type="text" class="form-control container" v-model="regtime" style="width:80%;margin:20px" placeholder="input regtime">
+				<input type="text" class="form-control container" v-model="registerDeviceId" style="width:80%;margin:20px" placeholder="input registerDeviceId">
+				<input type="text" class="form-control container" v-model="openid" style="width:80%;margin:20px" placeholder="input openid">
+				<button type="submit" class="btn btn-success btn-block">create task</button>
+			</form>
+
+			{{id}}
+		</counter>
+
+
+
+		<table style="margin:50px" class="table">
+			<tr>
+				<td>ID</td>
+				<td>regtime</td>
+				<td>registerDeviceId</td>
+				<td>openid</td>
+				<td>operate</td>
+			</tr>
+			<tr v-for="task in list">
+				<td>{{task.id}}</td>
+				<td>{{task.regtime}}</td>
+				<td>{{task.registerDeviceId}}</td>
+				<td>{{task.openid}}</td>
+				<td><a @click="deleteTask(task)">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a @click="saveTask(task)">修改</a></td>
+			</tr>
+		<table>
+
+	
+
+
+	</div>
+
+	<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+</body>
+</html>
